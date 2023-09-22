@@ -35,7 +35,7 @@ uint32_t autofire_delays = 1;
 static void usb_hid_autofire_render_callback(Canvas * canvas, void * ctx) {
   UNUSED(ctx);
   char autofire_delay_str[12];
-  itoa(autofire_delay, autofire_delay_str, 10);
+  itoa(autofire_delays, autofire_delay_str, 10);
 
   canvas_clear(canvas);
 
@@ -46,8 +46,8 @@ static void usb_hid_autofire_render_callback(Canvas * canvas, void * ctx) {
   canvas_set_font(canvas, FontSecondary);
   canvas_draw_str(canvas, 55, 34, "up/down = time");
   canvas_draw_str(canvas, 0, 22, "press [ok] for off");
-  canvas_draw_str(canvas, 0, 45, "delay [ms]:               ");
-  canvas_draw_str(canvas, 50, 46, autofire_delay_str);
+  canvas_draw_str(canvas, 0, 45, "CPS:               ");
+  canvas_draw_str(canvas, 40, 46, autofire_delay_str);
   canvas_draw_str(canvas, 0, 63, "Left/Right for click");
 }
 
@@ -126,7 +126,7 @@ if (btn_left_autofire == false){
             
           break;
         case InputKeyRight:
- autofire_delay = (1000/autofire_delays) /2
+ autofire_delay = (1000/autofire_delays) /2;
 if (btn_right_autofire == false){
     if (btn_left_autofire == true){
         btn_left_autofire = false;
@@ -150,7 +150,7 @@ if (btn_right_autofire == false){
             // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
             furi_delay_us(autofire_delay);
             furi_hal_hid_mouse_release(HID_MOUSE_BTN_LEFT);
-            furi_delay_us(autofire_delay;
+            furi_delay_us(autofire_delay);
         }
       if(btn_right_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_RIGHT);
