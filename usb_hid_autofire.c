@@ -150,9 +150,9 @@ if (btn_right_autofire == false){
       if(btn_left_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_LEFT);
             // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
-            furi_delay_us(autofire_delay);
+            furi_delay_us(autofire_delays * 5000);
             furi_hal_hid_mouse_release(HID_MOUSE_BTN_LEFT);
-            furi_delay_us(autofire_delay);
+            furi_delay_us(autofire_delays * 5000);
         }
       if(btn_right_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_RIGHT);
