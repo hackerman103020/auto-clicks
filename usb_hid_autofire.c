@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include "version.h"
 #include "Keycodes.h"
-
+#include <dos.h>
 
 
 // Uncomment to be able to make a screenshot
@@ -150,9 +150,11 @@ if (btn_right_autofire == false){
       if(btn_left_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_LEFT);
             // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
-           // furi_delay_us(autofire_delay);
+                delay(2500); // delay.
+//furi_delay_us(1);
             furi_hal_hid_mouse_release(HID_MOUSE_BTN_LEFT);
-            furi_delay_us(autofire_delay * 2);
+               delay(2500); // delay.
+ //furi_delay_us(1);
         }
       if(btn_right_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_RIGHT);
