@@ -8,6 +8,8 @@
 #include "version.h"
 #include "Keycodes.h"
 
+
+
 // Uncomment to be able to make a screenshot
 //#define USB_HID_AUTOFIRE_SCREENSHOT
 
@@ -27,13 +29,12 @@ UsbMouseEvent;
 bool btn_left_autofire = false;
 bool btn_right_autofire = false;
 bool ison = false;
-float autofire_delay = 500.0000000;
-uint32_t autofire_delays = 1;
+uint32_t autofire_delay = 10;
 
 static void usb_hid_autofire_render_callback(Canvas * canvas, void * ctx) {
   UNUSED(ctx);
   char autofire_delay_str[12];
-  itoa(autofire_delays, autofire_delay_str, 10);
+  itoa(autofire_delay, autofire_delay_str, 10);
 
   canvas_clear(canvas);
 
@@ -44,8 +45,8 @@ static void usb_hid_autofire_render_callback(Canvas * canvas, void * ctx) {
   canvas_set_font(canvas, FontSecondary);
   canvas_draw_str(canvas, 55, 34, "up/down = time");
   canvas_draw_str(canvas, 0, 22, "press [ok] for off");
-  canvas_draw_str(canvas, 0, 45, "CPS:               ");
-  canvas_draw_str(canvas, 40, 46, autofire_delay_str);
+  canvas_draw_str(canvas, 0, 45, "delay [ms]:               ");
+  canvas_draw_str(canvas, 50, 46, autofire_delay_str);
   canvas_draw_str(canvas, 0, 63, "Left/Right for click");
 }
 
@@ -100,18 +101,15 @@ int32_t usb_hid_autofire_app(void * p) {
           break;
         case InputKeyUp:
             
-            if (autofire_delays < 50) {
-            autofire_delays += 1;
-          } 
+            autofire_delay += 10;
             
           break;
         case InputKeyDown:
-         if (autofire_delays > 0) {
-            autofire_delays -= 1;
+          if (autofire_delay > 0) {
+            autofire_delay -= 10;
           }
           break;
         case InputKeyLeft:
- autofire_delay = (500000/autofire_delays);
 if (btn_left_autofire == false){
     if (btn_right_autofire == true){
         btn_right_autofire = false;
@@ -126,7 +124,7 @@ if (btn_left_autofire == false){
             
           break;
         case InputKeyRight:
- autofire_delay = (500000/autofire_delays);
+
 if (btn_right_autofire == false){
     if (btn_left_autofire == true){
         btn_left_autofire = false;
@@ -145,27 +143,24 @@ if (btn_right_autofire == false){
       }
     }
 
-        
+      if(btn_left_autofire) {
+            furi_hal_hid_mouse_press(HID_MOUSE_BTN_LEFT);
+            // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
+            furi_delay_us(autofire_delay * 500);
+            furi_hal_hid_mouse_release(HID_MOUSE_BTN_LEFT);
+            furi_delay_us(autofire_delay * 500);
+        }
       if(btn_right_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_RIGHT);
             // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
-            furi_delay_us(autofire_delay);
+            furi_delay_us(autofire_delay * 500);
             furi_hal_hid_mouse_release(HID_MOUSE_BTN_RIGHT);
-            furi_delay_us(autofire_delay);
+            furi_delay_us(autofire_delay * 500);
         }
 
 
     view_port_update(view_port);
   }
-
-
-if(btn_left_autofire) {
-            furi_hal_hid_mouse_press(HID_MOUSE_BTN_LEFT);
-            // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
-//furi_delay_us(1);
-            furi_hal_hid_mouse_release(HID_MOUSE_BTN_LEFT);
- //furi_de
-}
 
   furi_hal_usb_set_config(usb_mode_prev, NULL);
 
