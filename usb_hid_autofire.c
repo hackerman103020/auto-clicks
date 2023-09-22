@@ -7,8 +7,6 @@
 #include <stdio.h>
 #include "version.h"
 #include "Keycodes.h"
-#include <dos.h>
-
 
 // Uncomment to be able to make a screenshot
 //#define USB_HID_AUTOFIRE_SCREENSHOT
