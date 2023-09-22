@@ -145,7 +145,6 @@ if (btn_right_autofire == false){
       }
     }
 
-      lay_us(1);
         
       if(btn_right_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_RIGHT);
