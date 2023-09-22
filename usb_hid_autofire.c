@@ -113,7 +113,7 @@ int32_t usb_hid_autofire_app(void * p) {
           }
           break;
         case InputKeyLeft:
- autofire_delay = ((1000/autofire_delays) / 2);
+ autofire_delay = ((500000/autofire_delays) / 2);
 if (btn_left_autofire == false){
     if (btn_right_autofire == true){
         btn_right_autofire = false;
@@ -128,7 +128,7 @@ if (btn_left_autofire == false){
             
           break;
         case InputKeyRight:
- autofire_delay = ((1000/autofire_delays) / 2);
+ autofire_delay = ((500000/autofire_delays) / 2);
 if (btn_right_autofire == false){
     if (btn_left_autofire == true){
         btn_left_autofire = false;
@@ -150,9 +150,9 @@ if (btn_right_autofire == false){
       if(btn_left_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_LEFT);
             // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
-            furi_delay_us(500000);
+            furi_delay_us(autofire_delay);
             furi_hal_hid_mouse_release(HID_MOUSE_BTN_LEFT);
-            furi_delay_us(500000);
+            furi_delay_us(autofire_delay);
         }
       if(btn_right_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_RIGHT);
