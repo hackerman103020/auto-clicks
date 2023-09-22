@@ -146,7 +146,7 @@ if (btn_right_autofire == false){
     }
 
       lay_us(1);
-        }
+        
       if(btn_right_autofire) {
             furi_hal_hid_mouse_press(HID_MOUSE_BTN_RIGHT);
             // TODO: Don't wait, but use the timer directly to just don't send the release event (see furi_hal_cortex_delay_us)
@@ -166,7 +166,7 @@ if(btn_left_autofire) {
 //furi_delay_us(1);
             furi_hal_hid_mouse_release(HID_MOUSE_BTN_LEFT);
  //furi_de
-
+}
 
   furi_hal_usb_set_config(usb_mode_prev, NULL);
 
