@@ -104,13 +104,13 @@ int32_t usb_hid_autofire_app(void * p) {
          if (cps < 100) {
             cps += 1;
           }
-           autofire_delay = (1000/cps)
+           autofire_delay = (1000/cps);
           break;
         case InputKeyDown:
           if (cps > 0) {
             cps -= 1;
           }
-           autofire_delay = (1000/cps)
+           autofire_delay = (1000/cps);
           break;
         case InputKeyLeft:
 if (btn_left_autofire == false){
