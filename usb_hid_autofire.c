@@ -30,7 +30,7 @@ bool btn_left_autofire = false;
 bool btn_right_autofire = false;
 bool ison = false;
 float autofire_delay = 1000.0000;
-uint32_t cps = 10;
+uint32_t cps = 1;
 
 static void usb_hid_autofire_render_callback(Canvas * canvas, void * ctx) {
   UNUSED(ctx);
